@@ -1,13 +1,17 @@
-[tool.ruff]
-line-length = 88
-select = ["E", "W", "F", "I", "C", "B", "D", "N", "UP"]
-ignore = ["E501", "W505", "D100", "D101", "D102", "D103", "D104", "D105", "D107"]
+# General lint configuration
+[lint]
+select = ["E", "F", "W", "C90"]
+ignore = ["E501"]  # Ignore line length errors
+#line-length = 120
+# McCabe complexity settings
+[lint.mccabe]
+max-complexity = 5
 
-[tool.ruff.isort]
-known-first-party = ["your_project_name"] # Replace with your project name
-
-[tool.ruff.flake8-quotes]
-inline-quotes = "single"
-
-[tool.ruff.pydocstyle]
-convention = "google"
+# Pylint complexity and design constraints
+[lint.pylint]
+max-statements = 20   # Limits statements per function (approximates method length)
+max-nested-blocks = 4 # Limits nesting depth
+max-locals = 10        # Limits local variables
+max-public-methods = 4 # Limits public methods per class
+max-branches = 7      # Limits branches per function
+max-returns = 3       # Limits return statements per function
