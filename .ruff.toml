@@ -2,7 +2,16 @@
 [lint]
 select = ["E", "F", "W", "C90"]
 ignore = ["E501"]  # Ignore line length errors
-
+#line-length = 120
 # McCabe complexity settings
 [lint.mccabe]
-max-complexity = 5
+max-complexity = 4
+
+# Pylint complexity and design constraints
+[lint.pylint]
+max-statements = 10   # Limits statements per function (approximates method length)
+max-nested-blocks = 4 # Limits nesting depth
+max-locals = 5        # Limits local variables
+max-public-methods = 4 # Limits public methods per class
+max-branches = 5      # Limits branches per function
+max-returns = 3       # Limits return statements per function
