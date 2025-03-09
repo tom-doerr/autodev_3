@@ -1,0 +1,13 @@
+[tool.ruff]
+line-length = 88
+select = ["E", "W", "F", "I", "C", "B", "D", "N", "UP"]
+ignore = ["E501", "W505", "D100", "D101", "D102", "D103", "D104", "D105", "D107"]
+
+[tool.ruff.isort]
+known-first-party = ["your_project_name"] # Replace with your project name
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "single"
+
+[tool.ruff.pydocstyle]
+convention = "google"
