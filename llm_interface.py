@@ -1,16 +1,30 @@
 """
-This module defines the interface for interacting with the LLM.
+This module defines the interface for interacting with the LLM using DSPy.
 """
 
-class LLMInterface:
-    def __init__(self, api_key: str):
-        """
-        Initializes the LLM Interface with an API key.
+import dspy
 
-        Args:
-            api_key: The API key for accessing the LLM.
-        """
-        self.api_key = api_key
+class GeneratePlan(dspy.Signature):
+    """Generates a plan for a given task."""
+    task_description = dspy.InputField()
+    plan = dspy.OutputField()
+
+class GenerateCode(dspy.Signature):
+    """Generates code for a given step in the plan."""
+    step = dspy.InputField()
+    code = dspy.OutputField()
+
+class GenerateFinalResult(dspy.Signature):
+    """Generates the final result of the task execution."""
+    context = dspy.InputField()
+    result = dspy.OutputField()
+
+class DSPyLLM(dspy.Module):
+    def __init__(self):
+        super().__init__()
+        self.generate_plan = dspy.Predict(GeneratePlan)
+        self.generate_code = dspy.Predict(GenerateCode)
+        self.generate_final_result = dspy.Predict(GenerateFinalResult)
 
     def generate_plan(self, task_description: str) -> list[str]:
         """
@@ -22,9 +36,8 @@ class LLMInterface:
         Returns:
             A list of strings representing the steps in the plan.
         """
-        # TODO: Implement the logic for generating a plan using the LLM API
-        # Example implementation (replace with actual LLM API call)
-        return ["Step 1: Implement the base class", "Step 2: Implement the derived class"]
+        prediction = self.generate_plan(task_description=task_description)
+        return prediction.plan.split("\n")
 
     def generate_code(self, step: str) -> str:
         """
@@ -36,9 +49,8 @@ class LLMInterface:
         Returns:
             A string containing the generated code.
         """
-        # TODO: Implement the logic for generating code using the LLM API
-        # Example implementation (replace with actual LLM API call)
-        return "print('hello world')"
+        prediction = self.generate_code(step=step)
+        return prediction.code
 
     def update_context(self, step: str, code: str, result: str):
         """
@@ -49,17 +61,17 @@ class LLMInterface:
             code: A string containing the code that was executed.
             result: A string containing the result of executing the code.
         """
-        # TODO: Implement the logic for updating the LLM context
-        # Example implementation (replace with actual LLM API call)
+        # In DSPy, context is managed implicitly through the module's state.
+        # You might need to implement a more sophisticated context management strategy
+        # depending on the complexity of your task.
         pass
 
-    def generate_final_result(self) -> str:
+    def generate_final_result(self, context: str) -> str:
         """
         Generates the final result of the task execution using the LLM.
 
         Returns:
             A string containing the final result.
         """
-        # TODO: Implement the logic for generating the final result using the LLM API
-        # Example implementation (replace with actual LLM API call)
-        return "Task completed successfully."
+        prediction = self.generate_final_result(context=context)
+        return prediction.result
