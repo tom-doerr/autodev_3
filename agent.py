@@ -1,9 +1,14 @@
 """
 This module contains the core logic for the LLM coding agent.
 """
+from llm_interface import LLMInterface
+from environment import Environment
 
 class Agent:
-    def __init__(self, llm, environment):
+    """
+    The Agent class is responsible for executing tasks by interacting with the LLM and the environment.
+    """
+    def __init__(self, llm: LLMInterface, environment: Environment):
         """
         Initializes the Agent with an LLM interface and an environment.
 
@@ -25,15 +30,15 @@ class Agent:
             A string containing the result of the task execution.
         """
         # 1. Generate a plan using the LLM
-        plan = self.llm.generate_plan(task_description)
+        plan: list[str] = self.llm.generate_plan(task_description)
 
         # 2. Execute the plan step-by-step
         for step in plan:
             # 3. Generate code for the current step
-            code = self.llm.generate_code(step)
+            code: str = self.llm.generate_code(step)
 
             # 4. Execute the code in the environment
-            result = self.environment.execute_code(code)
+            result: str = self.environment.execute_code(code)
 
             # 5. Update the LLM with the result
             self.llm.update_context(step, code, result)

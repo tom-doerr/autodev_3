@@ -32,5 +32,7 @@ class Environment:
             if stderr:
                 return f"Error: {stderr}"
             return stdout
+        except subprocess.CalledProcessError as e:
+            return f"Error: {str(e)}"
         except Exception as e:
             return f"Error: {str(e)}"

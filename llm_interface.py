@@ -23,6 +23,7 @@ class LLMInterface:
             A list of strings representing the steps in the plan.
         """
         # TODO: Implement the logic for generating a plan using the LLM API
+        # Example implementation (replace with actual LLM API call)
         return ["Step 1: Implement the base class", "Step 2: Implement the derived class"]
 
     def generate_code(self, step: str) -> str:
@@ -36,6 +37,7 @@ class LLMInterface:
             A string containing the generated code.
         """
         # TODO: Implement the logic for generating code using the LLM API
+        # Example implementation (replace with actual LLM API call)
         return "print('hello world')"
 
     def update_context(self, step: str, code: str, result: str):
@@ -48,6 +50,7 @@ class LLMInterface:
             result: A string containing the result of executing the code.
         """
         # TODO: Implement the logic for updating the LLM context
+        # Example implementation (replace with actual LLM API call)
         pass
 
     def generate_final_result(self) -> str:
@@ -58,4 +61,5 @@ class LLMInterface:
             A string containing the final result.
         """
         # TODO: Implement the logic for generating the final result using the LLM API
+        # Example implementation (replace with actual LLM API call)
         return "Task completed successfully."
